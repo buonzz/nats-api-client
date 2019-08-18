@@ -24,23 +24,16 @@ class Client{
 
 	}
 
-	public function build_uri($action, $parameters){
+	public function build_uri($endpoint, $action, $parameters){
 	
 		$action->validate_params($parameters);
-	
-		$action_name = $action->getName();
-	
-		$kv = [
-			'api_action' => $action_name,
-			'auth_user' => $this->username->getValue(),
-			'auth_pass' => $this->password->getValue()
-		];
 	
 		foreach($parameters as $parameter){
 			$kv[$parameter->getName()] = $parameter->getValue();
 		}
 	
-		$url_call  = $this->url . '?' . http_build_query($kv);
+		$url_call  = $this->url . '/api/' . $endpoint->getName() . '/'. $action->getName() 
+								. '/?' . http_build_query($parameters);
 
 		return $url_call;
 	}
@@ -50,14 +43,17 @@ class Client{
 		$client = GuzzleClient();
 		
 		$uri = $this->build_uri($action, $parameters);
+		
 		// expose this so the user of the package can inspect it
 		$this->current_querystring = $uri;
 		
 		$response = $client->request('GET', $uri);
 		$body = $response->getBody();
+		
 		// expose the response from api, so the user of the package can inspect
 		$this->current_raw_response = $body;
-		$parsed_xml = new \SimpleXMLElement($body);
-		return $parsed_xml;
+		
+		$parsed_json = json_decode($body);
+		return $parsed_json;
 	} //
 }
