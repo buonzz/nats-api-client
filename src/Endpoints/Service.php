@@ -23,7 +23,8 @@ class Service implements EndpointInterface{
           'rule-info',
           'stats-breakdowns',
           'timezone',
-          'timestamp'
+          'timestamp',
+          'sendemail'
       ];
   }
 }
