@@ -1,7 +1,7 @@
 {
     "name": "buonzz/nats-api-client",
     "description": "PHP client for TMM's NATS API.",
-    "keywords": ["nats", "adult", "tmm"],
+    "keywords": ["nats", "adult", "tmm", "affiliate-tracking", "adult scripts"],
     "license": "MIT",
     "authors": [
         {
