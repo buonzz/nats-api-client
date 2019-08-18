@@ -4,5 +4,6 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
 
-class ClientTest extends PHPUnit_Framework_TestCase{
+class ClientTest extends PHPUnit\Framework\TestCase {
+    
 }
