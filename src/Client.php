@@ -1,6 +1,7 @@
 <?php 
 
-namespace Buonzz\NATS;
+namespace Buonzz\NATS\Rest;
+
 use Buonzz\NATS\Parameters\ApiUsername;
 use Buonzz\NATS\Parameters\ApiKey;
 use Buonzz\NATS\Parameters\ApiUrl;

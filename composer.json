@@ -19,7 +19,7 @@
     },
 	"autoload": {
         "psr-4": {
-            "Buonzz\\NATS\\": "src/"
+            "Buonzz\\NATS\\Rest\\": "src/"
         }
     }
 }

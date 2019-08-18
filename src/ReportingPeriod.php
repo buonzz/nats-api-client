@@ -1,6 +1,6 @@
 <?php 
 
-namespace Buonzz\NATS;
+namespace Buonzz\NATS\Rest;
 
 class ReportingPeriod {
 	const CURRENT = 0; 
