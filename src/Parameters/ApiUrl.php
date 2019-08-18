@@ -3,10 +3,10 @@
 namespace Buonzz\NATS\Rest\Parameters;
 
 /**
-* api-key of the HTTP request (Required).  
+* url of the HTTP request (Required).  
 */
 
-class ApiUsername implements ApiParameterInterface {
+class ApiUrl implements ApiParameterInterface {
 
 	private $value;
 
@@ -15,7 +15,7 @@ class ApiUsername implements ApiParameterInterface {
 	}
 
 	public function getName(){
-		return 'api-key';
+		return 'url';
 	}
 
 	public function getValue(){ return $this->value;}
@@ -26,8 +26,10 @@ class ApiUsername implements ApiParameterInterface {
 
 	public function validate($value){
 
-		if (!preg_match('/^[A-Za-z]{1}[A-Za-z0-9]{5,255}$/', $value))
-			throw new \InvalidArgumentException("the api-key " .  $value . " is not valid. alpha-numeric only, up to 255 characters, minimum of 32");
+		if(!filter_var($value, FILTER_VALIDATE_URL))
+			throw new \InvalidArgumentException("the api url: " . $value . " is not a valid url");
+		else
+			return true;
 		
 		return $value;
 	}
