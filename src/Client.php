@@ -1,47 +1,62 @@
 <?php 
 
 namespace Buonzz\NATS;
+use Buonzz\NATS\Parameters\ApiUsername;
+use Buonzz\NATS\Parameters\ApiKey;
+use Buonzz\NATS\Parameters\ApiUrl;
 
-use Buonzz\NATS\Validators\SoapApiUrlValidator;
-use Buonzz\NATS\Validators\UsernameValidator;
-use Buonzz\NATS\Validators\ApiKeyValidator;
+use GuzzleHttp\Client as GuzzleClient;
 
-use Monolog\Logger;
+class Client{
 
-class Client {
+	private $username = null;
+	private $password = null;	
+	private $url = null;
+	public $current_querystring;
+	public $current_raw_response;
 
-	private $api_url;
-	private $username;
-	private $apikey;
-	private $validators;
-	private $logger;
+	public function __construct($username, $key, $url){
 
-	public function __construct($api_url, $username, $apikey, $options = []){
+		$this->username = new Username($username);
+		$this->password = new ApiKey($key);
+		$this->url = new ApiUrl($url);
 
-		$this->validators['api_url'][] = new ApiUrlValidator($api_url);
-		$this->validators['username'][] = new UsernameValidator($username);
-		$this->validators['apikey'][] = new ApiKeyValidator($apikey);
+	}
 
-		foreach($this->validators as $prop=>$validators)
-		{
-			foreach($validators as $validator)
-				$validator->validate();
+	public function build_uri($action, $parameters){
+	
+		$action->validate_params($parameters);
+	
+		$action_name = $action->getName();
+	
+		$kv = [
+			'api_action' => $action_name,
+			'auth_user' => $this->username->getValue(),
+			'auth_pass' => $this->password->getValue()
+		];
+	
+		foreach($parameters as $parameter){
+			$kv[$parameter->getName()] = $parameter->getValue();
 		}
+	
+		$url_call  = $this->url . '?' . http_build_query($kv);
 
-		$this->api_url = $api_url . "/admin_api.php";
-		$this->username = $username;
-		$this->apikey = $apikey;
-
-		$this->logger = null;
-
-
-	} //constuctor
-
-	public function execute($function_name, $arguments){
+		return $url_call;
 	}
 
-	public function setLogger(Logger $logger){
-		$this->logger = $logger;
-	}
+	public function execute($action, $parameters){
 
+		$client = GuzzleClient();
+		
+		$uri = $this->build_uri($action, $parameters);
+		// expose this so the user of the package can inspect it
+		$this->current_querystring = $uri;
+		
+		$response = $client->request('GET', $uri);
+		$body = $response->getBody();
+		// expose the response from api, so the user of the package can inspect
+		$this->current_raw_response = $body;
+		$parsed_xml = new \SimpleXMLElement($body);
+		return $parsed_xml;
+	} //
 }
