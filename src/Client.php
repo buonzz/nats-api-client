@@ -14,7 +14,7 @@ class Client{
 	private $key = null;	
 	private $url = null;
 
-	public function __construct($username, $key, $url){
+	public function __construct($url, $username, $key ){
 
 		$this->username = new ApiUsername($username);
 		$this->key = new ApiKey($key);

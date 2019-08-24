@@ -10,4 +10,9 @@
 					<directory>tests</directory>
 				</testsuite>
 			</testsuites>
+    <php>
+        <env name="API_URL" value="http://localhost:3000" />
+        <env name="API_USER" value="tmm1phrvezsbu" />
+        <env name="API_KEY" value="44b5498dbcb481a0d00b404c0169af62" />
+    </php>
 </phpunit>
