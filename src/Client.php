@@ -2,9 +2,9 @@
 
 namespace Buonzz\NATS\Rest;
 
-use Buonzz\NATS\Parameters\ApiUsername;
-use Buonzz\NATS\Parameters\ApiKey;
-use Buonzz\NATS\Parameters\ApiUrl;
+use Buonzz\NATS\Rest\Parameters\ApiUsername;
+use Buonzz\NATS\Rest\Parameters\ApiKey;
+use Buonzz\NATS\Rest\Parameters\ApiUrl;
 
 use GuzzleHttp\Client as GuzzleClient;
 
@@ -18,7 +18,7 @@ class Client{
 
 	public function __construct($username, $key, $url){
 
-		$this->username = new Username($username);
+		$this->username = new ApiUsername($username);
 		$this->password = new ApiKey($key);
 		$this->url = new ApiUrl($url);
 
