@@ -18,7 +18,7 @@ composer require buonzz/nats-api-client
 instantiate the client
 
 ```
-use Buonzz\NATS\Client;
+use Buonzz\NATS\Rest\Client;
 
 $client = new Client('http://www.yournats.com', 'affiliate_username', 'affilite_apikey');
 ```
@@ -27,7 +27,7 @@ $client = new Client('http://www.yournats.com', 'affiliate_username', 'affilite_
 initiate a call
 
 ```
-use Buonzz\NATS\EndPoints\Service;
+use Buonzz\NATS\Rest\EndPoints\Service;
 
 $service = new Service($client);
 

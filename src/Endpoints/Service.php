@@ -2,11 +2,18 @@
 
 namespace Buonzz\NATS\Rest;
 
+use Buonzz\NATS\Rest\Actions\Ping;
+
 class Service implements EndpointInterface{
 
   public function getName(){
       return 'service';
   } 
+
+  public function ping(){
+    $action = new Ping();
+    $action->execute();
+  }
     
   public function getValidActions(){
       return [
@@ -17,7 +24,6 @@ class Service implements EndpointInterface{
           'datetime',
           'languages',
           'periods',
-          'ping',
           'ping',
           'rule-condition-data',
           'rule-info',
