@@ -16,6 +16,15 @@ class Service extends BaseEndPoint{
       return 'service';
   } 
 
+  /**
+   *  invoke the actual action for this endpoint
+   */
+  function __call($method, $params){
+      if(!in_array($method, $this->getValidActions()))
+        throw new \Exception( $method . " action is not available on " . get_class($this));
+
+  }
+
   public function ping(){
     $action = new Ping();
     $action->execute($client, $endpoint);
