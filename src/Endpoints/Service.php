@@ -16,9 +16,11 @@ class Service extends BaseEndPoint{
       return 'service';
   } 
 
-  public function ping(){
+  public function ping($params){
     $action = new Ping();
-    $action->execute($client, $endpoint);
+    $action->validate_params($params);
+    $result = $action->execute($client, $params);
+    return $result;
   }
     
   public function getValidActions(){
