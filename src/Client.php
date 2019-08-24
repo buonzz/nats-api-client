@@ -6,38 +6,36 @@ use Buonzz\NATS\Rest\Parameters\ApiUsername;
 use Buonzz\NATS\Rest\Parameters\ApiKey;
 use Buonzz\NATS\Rest\Parameters\ApiUrl;
 
-use GuzzleHttp\Client as GuzzleClient;
+
 
 class Client{
 
 	private $username = null;
-	private $password = null;	
+	private $key = null;	
 	private $url = null;
-	public $current_querystring;
-	public $current_raw_response;
 
 	public function __construct($username, $key, $url){
 
 		$this->username = new ApiUsername($username);
-		$this->password = new ApiKey($key);
+		$this->key = new ApiKey($key);
 		$this->url = new ApiUrl($url);
 
 	}
 
-	public function build_uri($endpoint, $action, $parameters){
-	
-		$action->validate_params($parameters);
-	
-		foreach($parameters as $parameter){
-			$kv[$parameter->getName()] = $parameter->getValue();
-		}
-	
-		$url_call  = $this->url . '/api/' . $endpoint->getName() . '/'. $action->getName() 
-								. '/?' . http_build_query($parameters);
-
-		return $url_call;
+	public function getUrl(){
+		return $this->url;
 	}
 
+	public function getUsername(){
+		return $this->username;
+	}
+
+	public function getApiKey(){
+		return $this->key;
+	}
+
+
+	/*
 	public function execute($action, $parameters){
 
 		$client = GuzzleClient();
@@ -56,4 +54,5 @@ class Client{
 		$parsed_json = json_decode($body);
 		return $parsed_json;
 	} //
+	*/
 }
