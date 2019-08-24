@@ -27,11 +27,11 @@ $client = new Client('http://www.yournats.com', 'affiliate_username', 'affilite_
 initiate a call
 
 ```
-use Buonzz\NATS\Ping;
+use Buonzz\NATS\EndPoints\Service;
 
-$cmd = new Ping($client);
+$service = new Service($client);
 
-$result = $cmd->execute();
+$result = $service->ping();
 
 ```
 
