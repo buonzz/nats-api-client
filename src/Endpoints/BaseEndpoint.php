@@ -33,7 +33,8 @@ class BaseEndpoint implements EndpointInterface{
             throw new \Exception( $method . " action is not available on " . get_class($this));
 
          $action = new $method();  
-         $action->execute($this->client, $params);
+         $uri = $this->build_uri($method, $parameters);
+         $action->execute($this->client, $uri, $params);
          
     }    
 

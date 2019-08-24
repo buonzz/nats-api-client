@@ -16,7 +16,7 @@ class BaseAction implements ActionInterface {
         
         $uri = $this->build_uri($this, $params);
 
-        $response = $client->request('GET', $uri);
+        $response = $client->request($this->method, $uri);
 		$body = $response->getBody();
 
         return $body;

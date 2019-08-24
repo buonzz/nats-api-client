@@ -11,7 +11,7 @@ class Ping extends BaseAction {
     private $name = 'ping';
     private $method = "GET";
 
-    public function execute(){
-        parent::execute();
+    public function execute($client, $params){
+        return parent::execute($client, $params);
     }
 }
