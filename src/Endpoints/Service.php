@@ -1,10 +1,16 @@
 <?php
 
-namespace Buonzz\NATS\Rest;
+namespace Buonzz\NATS\Rest\Endpoints;
 
 use Buonzz\NATS\Rest\Actions\Ping;
 
-class Service implements EndpointInterface{
+class Service extends BaseEndPoint{
+
+  private $client;
+
+  public function __construct($client){
+      $this->client = $client;
+  }
 
   public function getName(){
       return 'service';
@@ -12,7 +18,7 @@ class Service implements EndpointInterface{
 
   public function ping(){
     $action = new Ping();
-    $action->execute();
+    $action->execute($client, $endpoint);
   }
     
   public function getValidActions(){

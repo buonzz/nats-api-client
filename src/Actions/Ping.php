@@ -12,14 +12,11 @@ class Ping implements ActionInterface {
     private $name = 'ping';
     private $method = "GET";
 
-
     public function getName(){
 		return $this->name;
 	}
 
-    public function method(){
+    public function execute($uri, $headers, $params){
         return $this->method;
     }
-
-
 }
